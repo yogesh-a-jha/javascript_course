@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: #212121; color: aliceblue;">
+    0	UNSENT	Client has been created. open() not called yet. <hr>
+1	OPENED	open() has been called. <hr>
+2	HEADERS_RECEIVED	send() has been called, and headers and status are available. <hr>
+3	LOADING	Downloading; responseText holds partial data. <hr>
+4	DONE	The operation is complete. <hr>
+<hr>
+
+<div>
+    <h1>github data</h1>
+    <div>
+        <img src="" alt="" style="height: 100px; border-radius: 15px;">
+    </div>
+    <h3 id="username"></h3>
+    <span id="followers">followers : </span> 
+    &nbsp;
+    <span id="following">following : </span>
+
+</div>
+
+
+</body>
+<script>
+
+    const requestUrl = 'https://api.github.com/users/yogesh-a-jha'
+    const xhr = new XMLHttpRequest();
+
+    
+    xhr.open('GET', requestUrl)
+    xhr.onreadystatechange = function(){
+        console.log(xhr.readyState);
+        if (xhr.readyState === 4) {
+            const data = JSON.parse(this.responseText)
+            console.log(typeof data);
+            console.log(data);
+
+            const img = data.avatar_url;
+            const username = data.login
+            const followers = data.followers
+            const following =  data.following
+
+            img1.src = img ;
+            username1.innerHTML=username
+            followers1.innerHTML+=followers
+            following1.innerHTML+=following
+
+    
+        }
+    }
+
+    const img1 = document.querySelector("img");
+    const username1 = document.querySelector("#username");
+    const followers1 = document.querySelector("#followers");
+    const following1 =  document.querySelector("#following");
+
+    
+    xhr.send();
+</script>
+</html>
